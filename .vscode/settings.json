@@ -3,6 +3,8 @@
         "dbeventos",
         "dtfinal",
         "dtinicio",
-        "idresponsavel"
+        "idcurso",
+        "idresponsavel",
+        "idturma"
     ]
 }

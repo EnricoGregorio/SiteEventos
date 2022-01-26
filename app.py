@@ -10,5 +10,7 @@ def showHomePage():
     pageHome = render_template('index.html')
     return pageHome
 
+
+
 if __name__ == "__app__":
     app.run(debug=True)

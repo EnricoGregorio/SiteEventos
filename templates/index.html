@@ -5,19 +5,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site para gestão de eventos do IFPA - campus Paragominas.">
+    <meta name="keywords" content="evento, Paragominas, IFPA, aluno, gestor, turmas, cursos">
     <title>Página inicial</title>
+    <link rel="stylesheet" href="../static/styles/index.css">
 </head>
 
 <body>
     <header>
-
+        <div>
+            <h1 id="logo"><a href="/" target="_self">Home</a></h1>
+        </div>
+        <nav class="desktop">
+            <ul>
+                <li><a href="/alunos" target="_self">Eventos</a></li>
+                <li><a href="/eventos" target="_self">Alunos</a></li>
+                <li><a href="/sobre" target="_self">Sobre</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+            </ul>
+        </nav>
+        <button class="menu-button">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile">
+            <ul>
+                <li><a href="/alunos" target="_self">Eventos</a></li>
+                <li><a href="/eventos" target="_self">Alunos</a></li>
+                <li><a href="/sobre" target="_self">Sobre</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <h1>Olá, Mundo!</h1>
     </main>
     <footer>
-
+        <p>Todos os direitos reservados ₢ - <span id="cyear"></span></p>
     </footer>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/scripts.js"></script>
 </body>
 
 </html>
