@@ -10,7 +10,7 @@ def showHomePage():
     pageHome = render_template('index.html')
     return pageHome
 
-
+@app.route('/cadastro')
 
 if __name__ == "__app__":
     app.run(debug=True)
