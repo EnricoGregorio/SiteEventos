@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dongle:wght@300;400;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 :root {
     --cor0: #303440;
     --cor1: #0075FF;
@@ -9,7 +11,7 @@
     user-select: none;
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', 'Times New Roman', Times, serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 html, body {
@@ -34,6 +36,15 @@ svg {
     align-self: flex-end;
 }
 
+button {
+    user-select: none;
+    width: 60px;
+    background-color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}
+
 /* MENU */
 
 header {
@@ -46,8 +57,9 @@ header {
 }
 
 h1#logo a {
-    padding: 20px;
-    font-family: 'Montserrat', sans-serif;
+    padding: 15px 20px;
+    font-family: 'Dongle', Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
     font-weight: 300;
     text-decoration: none;
     text-transform: uppercase;
@@ -58,22 +70,27 @@ h1#logo a:hover {
     text-decoration: 1px underline;
 }
 
+nav.desktop {
+    display: flex;
+    align-items: center;
+}
+
 nav.desktop ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-nav.desktop > ul > li {
+nav.desktop>ul>li {
     justify-content: center;
     margin: 10px;
     list-style-type: none;
 }
 
-nav.desktop > ul > li > a {
+nav.desktop>ul>li>a {
     padding: 10px;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     text-decoration: none;
     color: white;
     border-radius: 10px;
@@ -81,7 +98,7 @@ nav.desktop > ul > li > a {
 
 }
 
-nav.desktop > ul > li > a:hover {
+nav.desktop>ul>li>a:hover {
     background-color: var(--cor1);
     border-radius: 10px;
     font-weight: 500;
@@ -98,4 +115,61 @@ main {
 
 footer {
     flex-shrink: 0;
+}
+
+
+@media screen and (max-width: 700px) {
+    header {
+        padding: 10px 0 0 0;
+    }
+
+    h1#logo {
+        margin-top: 6px;
+    }
+
+    nav.desktop {
+        display: none;
+    }
+
+    nav.mobile {
+        width: 100%;
+    }
+
+    nav.mobile li {
+        font-size: 1.2em;
+        text-align: center;
+        list-style-type: none;
+        border-bottom: 1px solid white;
+        padding: 16px 0;
+        user-select: none;
+    }
+
+    nav.mobile li>a {
+        color: white;
+        text-decoration: none;
+        padding: 7px 20px;
+    }
+
+    nav.mobile li:hover {
+        background-color: var(--cor1);
+        text-decoration: underline;
+    }
+
+    nav.mobile li:active {
+        background-color: var(--cor2);
+        text-decoration: underline;
+    }
+
+    button.menu-button {
+        display: block;
+        background: none;
+        margin: 0 10px 10px 10px;
+    }
+
+    .menu-button i {
+        font-size: 36px;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
 }
