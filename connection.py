@@ -15,7 +15,7 @@ db = pymysql.connect(**setDB)
 # Cadastros:
 
 # Cadastro de Gestores:
-def insertGestor(name, email, pwd):
+def setGestor(name, email, pwd):
     with db.cursor() as cursor:
         values = (name, email, pwd)
         query = "INSERT INTO Gestores(nome, email, pwd) VALUES(%s, %s, %s);"
@@ -27,8 +27,12 @@ def insertGestor(name, email, pwd):
             return 0
 
 # Cadastro de Eventos:
-def insertEvento(name, idGestor, dtInicio, dtFinal):
+def setEvento(name, emailGestor, dtInicio, dtFinal):
     with db.cursor() as cursor:
+        query = "SELECT id FROM Gestores WHERE email = %s"
+        cursor.execute(query, emailGestor)
+        gestor = cursor.fetchone()
+        idGestor = gestor[0]
         values = (name, idGestor, dtInicio, dtFinal)
         query = "INSERT INTO Eventos(evento, idresponsavel, dtinicio, dtfinal) VALUES(%s, %s, %s, %s);"
         try:            
@@ -39,7 +43,7 @@ def insertEvento(name, idGestor, dtInicio, dtFinal):
             return 0
         
 # Cadastro de Alunos:
-def insertAluno(name, matricula, idTurma, idCurso, idEvento):
+def setAluno(name, matricula, idTurma, idCurso, idEvento):
     with db.cursor() as cursor:
         values = (name, matricula, idTurma, idCurso, idEvento)
         query = "INSERT INTO Alunos(aluno, matricula, idTurma, idCurso, idEvento) VALUES(%s, %s, %s, %s, %s);"
