@@ -39,6 +39,25 @@ def showPageCadastro():
                 return redirectHome
             else:
                 return pageCadastro + '<script>window.alert("Esse e-mail já está cadastrado!")</script>'
+            
+@app.route('/login', methods=['GET', 'POST'])
+def showPageLogin():
+    pageLogin = render_template('pageLogin.html')
+    if 'gestorLogin' and 'gestorPwd' in session:
+        return redirectHome
+    else:
+        if request.method == 'GET':
+            return pageLogin
+        else:
+            email = request.form['email'].strip()
+            senha = request.form['senha'].strip()
+            resultado = conn.getGestor(email, senha)
+            if resultado == 0:
+                return pageLogin + '<script>window.alert("Esse e-mail não existe.")</script>'
+            elif resultado == 1:
+                return pageLogin + '<script>window.alert("E-mail e/ou senha incorreto(s).")</script>'
+            else:
+                return redirectHome
 
 @app.route('/eventos', methods=['GET', 'POST'])
 def showPageEventos():
@@ -47,10 +66,10 @@ def showPageEventos():
         if request.method == 'GET':
             return pageEventos
         else:
-            nomeE = request.form['nome']
+            nomeE = request.form['nome'].strip()
             emailGestor = session['gestorLogin']
-            dtInicio = request.form['dtinicio']
-            dtFinal = request.form['dtfinal']
+            dtInicio = request.form['dtinicio'].strip()
+            dtFinal = request.form['dtfinal'].strip()
             resultado = conn.setEvento(nomeE, emailGestor, dtInicio, dtFinal)
             if resultado == 1:
                 return redirectHome

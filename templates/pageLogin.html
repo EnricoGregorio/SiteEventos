@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de Eventos</title>
-    <link rel="stylesheet" href="../static/styles/cadastro.css">
 </head>
+
 <body>
     <header>
         <div>
@@ -35,14 +36,11 @@
     </header>
     <main>
         <form action="" method="post">
-            <h1>Cadastro de Gestores de Eventos</h1>
-            <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" minlength="3" required>
             <label for="email">E-mail:</label>
                 <input type="email" name="email" id="email" placeholder="Seu melhor email." pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Se conter letras, as mesmas devem ser minúsculas." required>
             <label for="pwd">Senha:</label>
                 <input type="password" name="senha" id="pwd" minlength="8" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Deve contar ao menos um número e letras maiúsculas e minúsculas, e ao menos 8 caracteres." required>
-            <input type="submit" value="Cadastrar">
+            <input type="submit" value="Entrar">
         </form>
     </main>
     <footer>
@@ -51,4 +49,5 @@
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/scripts.js"></script>
 </body>
+
 </html>
