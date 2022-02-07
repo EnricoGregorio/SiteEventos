@@ -22,6 +22,12 @@ def showHomePage():
     pageHome = render_template('index.html')
     return pageHome
 
+# Função para carregar uma página que não existe no site.
+@app.route('/<inexistente>', methods=['GET'])
+def showErrorPage(inexistente):
+    pageError = render_template('pageError404.html')
+    return pageError
+
 @app.route('/cadastro', methods=['GET', 'POST'])
 def showPageCadastro():
     pageCadastro = render_template('pageCadastro.html')
@@ -75,6 +81,31 @@ def showPageEventos():
                 return redirectHome
             else:
                 return pageEventos + '<script>window.alert("Esse título já foi usado em outro evento!")</script>'
-            
+    else:
+        return redirectHome
+
+@app.route('/alunos', methods=['GET', 'POST'])
+def showPageAlunos():
+    # pageAlunos = render_template('pageAlunos.html')
+    if request.method == 'GET':
+        numMatricula = ''
+        lista = conn.getAlunos(numMatricula)
+        pageAlunos = render_template('pageAlunos.html', alunos=lista)
+        return pageAlunos
+    else:
+        numMatricula = request.form['matricula'].strip()
+        lista = conn.getAlunos(numMatricula)
+        pageAlunos = render_template('pageAlunos.html', alunos=lista)
+        return pageAlunos
+
+@app.route('/contato', methods=['GET', 'POST'])
+def showPageContato():
+    pageContato = render_template('pageContato.html')
+    if request.method == 'GET':
+        return pageContato
+    else:
+        # Escrever código.
+        return pageContato
+
 if __name__ == "__app__":
     app.run(debug=True)

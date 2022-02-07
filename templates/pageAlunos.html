@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Eventos</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <a id="logo" href="/" target="_self">Home</a>
+        </div>
+        <nav class="desktop">
+            <ul>
+                <li><a href="/eventos" target="_self">Eventos</a></li>
+                <li><a href="/alunos" target="_self">Alunos</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+                <li><a href="/login" target="_self">Entrar</a></li>
+            </ul>
+        </nav>
+        <button class="menu-button">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile">
+            <ul>
+                <li><a href="/eventos" target="_self">Eventos</a></li>
+                <li><a href="/alunos" target="_self">Alunos</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+                <li><a href="/login" target="_self">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="" method="post">
+            <label for="matricula">Pesquise pelo número de matrícula:</label>
+                <input type="number" name="matricula" id="matricula">
+            <input type="submit" value="Pesquisar">
+        </form>
+        <section class="alunos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>Turma</th>
+                        <th>Curso</th>
+                        <th>Evento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">Nenhum dado ainda...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="paginacao">
+                <button id="anterior" disabled>&lsaquo;</button>
+                <span id="numeracao"></span>
+                <button id="proximo" disabled>&rsaquo;</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Todos os direitos reservados ₢ - <span id="cyear"></span></p>
+    </footer>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/scripts.js"></script>
+    <script>
+        // Uma forma de fazer paginação exclusivamente com jQuery/Javascript é ter os dados num vetor Javascript e então aplicá-los numa tabela com uma função específica.
+        let dados = []
+        let tamanhoPagina = 10;
+        let pagina = 0;
+
+        '{% for i in alunos %}'
+        dados.push(['{{alunos[loop.index-1][1]}}'],['{{alunos[loop.index-1][2]}}'],['{{alunos[loop.index-1][3]}}'],['{{alunos[loop.index-1][4]}}'],['{{alunos[loop.index-1][5]}}']);
+        '{% endfor %}'
+
+        // Também é necessário ter uma função para preencher os dados da página atual na tabela e, como bônus, mostrar o número da página:
+        function paginar() {
+            $('table > tbody > tr').remove();
+            let tbody = $('table > tbody');
+            for (let i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) * tamanhoPagina; i++) {
+                tbody.append(
+                    $('<tr>')
+                        .append($('<td>').append(dados[i][0]))
+                        .append($('<td>').append(dados[i][1]))
+                        .append($('<td>').append(dados[i][2]))
+                        .append($('<td>').append(dados[i][3]))
+                        .append($('<td>').append(dados[i][4]))   
+                )
+            }
+            $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
+        }
+
+        // Seria interessante uma função para ativar ou desativar os botões Próximo e Anterior quando estivesse na último ou na primeira página, respectivamente. Também poderia desativar caso tivesse apenas uma página:
+        function ajustarBotoes() {
+            $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= dados.length / tamanhoPagina - 1);
+            $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
+        }
+        // Por fim, precisamos colocar o evento para avançar e retroceder nas páginas, além de inicializar tudo isso no carregamento da página HTML:
+        $(function () {
+            $('#proximo').click(function () {
+                if (pagina < dados.length / tamanhoPagina - 1) {
+                    pagina++;
+                    paginar();
+                    ajustarBotoes();
+                }
+            });
+            $('#anterior').click(function () {
+                if (pagina > 0) {
+                    pagina--;
+                    paginar();
+                    ajustarBotoes();
+                }
+            });
+            paginar();
+            ajustarBotoes();
+        });
+    </script>
+</body>
+
+</html>
