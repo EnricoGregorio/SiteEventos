@@ -39,7 +39,7 @@
             <label for="nome">Nome:</label>
                 <input type="text" name="nome" id="nome" minlength="3" required>
             <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" placeholder="Seu melhor email." pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Se conter letras, as mesmas devem ser minúsculas." required>
+                <input type="email" name="email" id="email" title="Se conter letras, as mesmas devem ser minúsculas."  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Seu melhor e-mail." required>
             <label for="pwd">Senha:</label>
                 <input type="password" name="senha" id="pwd" minlength="8" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Deve contar ao menos um número e letras maiúsculas e minúsculas, e ao menos 8 caracteres." required>
             <input type="submit" value="Cadastrar">

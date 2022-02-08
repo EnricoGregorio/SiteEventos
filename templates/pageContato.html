@@ -35,7 +35,18 @@
         </nav>
     </header>
     <main>
-        <h1>Página de Contato</h1>
+        <h1>Entre em Contato</h1>
+        <form action="" method="post">
+            <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" title="Seu nome completo deve conter mais de 3 caracteres." pattern="{3,}" minlength="3" required>
+            <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" title="Se conter letras, as mesmas devem ser minúsculas."  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Seu melhor e-mail." required>
+            <label for="phone">Número de Celular:</label>
+            <input type="tel" name="celular" id="phone" title="O número deve incluir o DDD, o 9 da frente e o número, sem letras, espaços, ou símbolos." pattern="[0-9]{11}" minlength="11" maxlength="11" placeholder="01234567891" required>
+            <label for="msg">Mensagem:</label>
+                <textarea name="mensagem" id="msg" cols="30" rows="10" title="Informe o assunto da mensagem!" minlength="5" required></textarea>
+            <input type="submit" value="Enviar">
+        </form>
     </main>
     <footer>
         <p>Todos os direitos reservados ₢ - <span id="cyear"></span></p>

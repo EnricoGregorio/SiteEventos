@@ -1,6 +1,7 @@
 from distutils.log import debug
 from flask import Flask, render_template, request, session, redirect
 import connection as conn
+import sendEmail as send
 app = Flask(__name__)
 
 app.secret_key = "8ryt387bhdrj8e9xcf73fgby0f0vv"
@@ -104,8 +105,18 @@ def showPageContato():
     if request.method == 'GET':
         return pageContato
     else:
-        # Escrever código.
-        return pageContato
+        nome = request.form['nome'].title().strip()
+        email = request.form['email'].strip()
+        cel = request.form['celular'].strip()
+        msg = request.form['mensagem'].capitalize().strip()
+        if msg == '':
+            return pageContato + '<script>window.alert("Preencha a mensagem!")</script>'
+        else:
+            try:
+                send.sendEmail(nome, email, cel, msg)
+            except:
+                return pageContato + '<script>window.alert("Ocorreu um erro ao enviar a mensagem!")</script>'
+        return pageContato + '<script>window.alert("Mensagem enviada com sucesso!")</script>'
 
 if __name__ == "__app__":
     app.run(debug=True)
