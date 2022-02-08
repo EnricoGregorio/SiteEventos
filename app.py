@@ -7,9 +7,10 @@ app = Flask(__name__)
 app.secret_key = "8ryt387bhdrj8e9xcf73fgby0f0vv"
 
 redirectHome = redirect('http://127.0.0.1:5000/')
+redirectMaster = redirect('http://127.0.0.1:5000/masterLogin')
 
 # Função para enviar os dados do Gestor das notícias para a sessão.
-def setGestorUser(user, pwdUser, pageLink):
+def setGestorUser(user, pwdUser):
     if 'gestorLogin' and 'gestorPwd' in session:
         gestorLogin = session['gestorLogin']
         userPwd = session['gestorPwd']
@@ -35,18 +36,21 @@ def showPageCadastro():
     if 'gestorLogin' and 'gestorPwd' in session:
         return redirectHome
     else:
-        if request.method == 'GET':
-            return pageCadastro
-        else:
-            nome = request.form['nome'].strip()
-            email = request.form['email'].strip()
-            senha = request.form['senha'].strip()
-            resultado = conn.setGestor(nome, email, senha)
-            if resultado == 1:
-                return redirectHome
+        if 'masterLogin' and 'masterPwd' in session:
+            if request.method == 'GET':
+                return pageCadastro
             else:
-                return pageCadastro + '<script>window.alert("Esse e-mail já está cadastrado!")</script>'
-            
+                nome = request.form['nome'].strip()
+                email = request.form['email'].strip()
+                senha = request.form['senha'].strip()
+                resultado = conn.setGestor(nome, email, senha)
+                if resultado == 1:
+                    return redirectHome
+                else:
+                    return pageCadastro + '<script>window.alert("Esse e-mail já está cadastrado!")</script>'
+        else:
+            return redirectMaster
+                
 @app.route('/login', methods=['GET', 'POST'])
 def showPageLogin():
     pageLogin = render_template('pageLogin.html')
@@ -117,6 +121,24 @@ def showPageContato():
             except:
                 return pageContato + '<script>window.alert("Ocorreu um erro ao enviar a mensagem!")</script>'
         return pageContato + '<script>window.alert("Mensagem enviada com sucesso!")</script>'
+    
+@app.route('/masterLogin', methods=['GET', 'POST'])
+def showPageMasterLogin():
+    pageMasterLogin = render_template('pageMasterLogin.html')
+    if 'masterLogin' and 'masterPwd' in session:
+        return redirectHome
+    else:
+        if request.method == 'GET':
+            return pageMasterLogin
+        else:
+            login = request.form['master'].strip()
+            senha = request.form['senha'].strip()
+            if login == 'GestorMaster' and senha == 'Adh712(d-s7ç':
+                session['masterLogin'] = login
+                session['masterPwd'] = senha
+                return redirectHome
+            else:
+                return pageMasterLogin + '<script>window.alert("Usuário e/ou senha incorretos.")</script>'
 
 if __name__ == "__app__":
     app.run(debug=True)

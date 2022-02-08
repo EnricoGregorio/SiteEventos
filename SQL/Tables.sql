@@ -4,6 +4,14 @@ CREATE DATABASE dbeventos;
 -- Definição do banco que usaremos:
 USE dbeventos;
 
+-- Criação da tabela para o Master, que terá todo o controle dos gestores.
+CREATE TABLE MasterGestor(
+    id INT AUTO_INCREMENT,
+    user VARCHAR(10) NOT NULL UNIQUE,
+    pwd VARCHAR(20) NOT NULL,
+    PRIMARY KEY(id)
+)
+
 -- Tabelas para o cadastro do gestor:
 CREATE TABLE Gestores(
     id INT AUTO_INCREMENT,

@@ -1,6 +1,10 @@
 -- Definição de qual banco usaremos:
 USE dbeventos;
 
+-- Inserção do master.
+INSERT INTO MasterGestor(user, pwd)
+VALUES("GestorMaster", "Adh712(d-s7ç")
+
 -- Inserção das turmas do 1º ano.
 INSERT INTO Turmas(turma)
 VALUES('1º ano "A"');
