@@ -78,7 +78,7 @@
         let pagina = 0;
 
         '{% for i in alunos %}'
-        dados.push(['{{alunos[loop.index-1][1]}}'],['{{alunos[loop.index-1][2]}}'],['{{alunos[loop.index-1][3]}}'],['{{alunos[loop.index-1][4]}}'],['{{alunos[loop.index-1][5]}}']);
+        dados.push(['{{alunos[loop.index-1][0]}}','{{alunos[loop.index-1][1]}}','{{alunos[loop.index-1][2]}}','{{alunos[loop.index-1][3]}}','{{alunos[loop.index-1][4]}}']);
         '{% endfor %}'
 
         // Também é necessário ter uma função para preencher os dados da página atual na tabela e, como bônus, mostrar o número da página:

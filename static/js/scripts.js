@@ -1,5 +1,9 @@
 // Comando para deixar o ícone X do menu de navegação 'escondido' por padrão.
-window.document.querySelector(".fa-times").style.display = 'none'
+try {
+    window.document.querySelector(".fa-times").style.display = 'none'
+} catch (error) {
+    console.log('O dispositivo possui uma tela grande.')
+}
 
 // Bloco para sempre atualizar o ano de direito autoral do site.
 let now = new Date

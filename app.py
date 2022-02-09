@@ -68,6 +68,7 @@ def showPageLogin():
             elif resultado == 1:
                 return pageLogin + '<script>window.alert("E-mail e/ou senha incorreto(s).")</script>'
             else:
+                setGestorUser(email, senha)
                 return redirectHome
 
 @app.route('/eventos', methods=['GET', 'POST'])
@@ -87,7 +88,7 @@ def showPageEventos():
             else:
                 return pageEventos + '<script>window.alert("Esse título já foi usado em outro evento!")</script>'
     else:
-        return redirectHome
+        return redirectMaster
 
 @app.route('/alunos', methods=['GET', 'POST'])
 def showPageAlunos():
@@ -99,9 +100,38 @@ def showPageAlunos():
         return pageAlunos
     else:
         numMatricula = request.form['matricula'].strip()
+        print(numMatricula)
+        
         lista = conn.getAlunos(numMatricula)
         pageAlunos = render_template('pageAlunos.html', alunos=lista)
         return pageAlunos
+
+@app.route('/cadastroAlunos', methods=['GET', 'POST'])
+def showPageCadastroAlunos():
+    lista = conn.getEvento()
+    pageCadastroAlunos = render_template('pageCadastroAlunos.html', eventosLista=lista)
+    if 'gestorLogin' and 'gestorPwd' in session:
+        if  request.method == 'GET':
+            return pageCadastroAlunos
+        else:
+            numMatricula = request.form['matricula'].strip()
+            nome = request.form['nome'].title().strip()
+            turma = request.form['turma'].strip().replace('\'', '\"')
+            curso = request.form['curso'].strip()
+            evento = request.form['evento'].strip()
+            # Pegar os IDs da turma e do curso no banco.
+            evento = conn.getEventoAluno(evento)
+            turmaECurso = conn.getTurmaECurso(turma, curso)
+            turma = turmaECurso[0]
+            curso = turmaECurso[1]
+            # Conferir se foi possível inserir o aluno no banco.
+            resultado = conn.setAluno(nome, numMatricula, turma, curso, evento)
+            if resultado == 1:
+                return pageCadastroAlunos + '<script>window.alert("Aluno(a) cadastrado(a) com sucesso!")</script>'
+            else:
+                return pageCadastroAlunos + '<script>window.alert("Esse número de matrícula já está registrado!")</script>'
+    else:
+        return redirectMaster
 
 @app.route('/contato', methods=['GET', 'POST'])
 def showPageContato():
@@ -133,10 +163,11 @@ def showPageMasterLogin():
         else:
             login = request.form['master'].strip()
             senha = request.form['senha'].strip()
+            redirectCadastroGestor = redirect('http://127.0.0.1:5000/cadastro')
             if login == 'GestorMaster' and senha == 'Adh712(d-s7ç':
                 session['masterLogin'] = login
                 session['masterPwd'] = senha
-                return redirectHome
+                return redirectCadastroGestor
             else:
                 return pageMasterLogin + '<script>window.alert("Usuário e/ou senha incorretos.")</script>'
 

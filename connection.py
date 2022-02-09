@@ -73,30 +73,65 @@ def getGestor(email, pwd):
             else:
                 return 2
 
+def getEvento():
+    with db.cursor() as cursor:
+        query = "SELECT evento FROM Eventos;"
+        cursor.execute(query)
+        eventos = cursor.fetchall()
+        # Converter a tupla de tuplas em uma única lista.
+        eventosLista = []
+        for evento in eventos:
+            eventosLista += list(evento)
+        return eventosLista
+    
+def getEventoAluno(e):
+    with db.cursor() as cursor:
+        query = "SELECT id FROM Eventos WHERE evento = %s;"
+        cursor.execute(query, e)
+        evento = cursor.fetchone()
+        idevento = evento[0]
+        return idevento
+    
 # Consulta de Eventos:
 def getEventos(evento):
     with db.cursor() as cursor:
         if evento == '':
-            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel"
+            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel;"
             cursor.execute(query)
             eventos = cursor.fetchall()
             return eventos
         else:
-            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel WHERE e.evento = '%{evento}%'"
+            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel WHERE e.evento LIKE '%{evento}%';"
             cursor.execute(query)
             eventos = cursor.fetchall()
             return eventos
+
+def getTurmaECurso(t, c):
+    with db.cursor() as cursor:
+        # Pegar o ID da turma pela Turma(t).
+        query = "SELECT id FROM Turmas WHERE turma = %s;"
+        cursor.execute(query, t)
+        turma = cursor.fetchone()
+        idTurma = turma[0]
+        # Pegar o ID do curso pelo Curso(c).
+        query = "SELECT id FROM Cursos WHERE curso = %s;"
+        cursor.execute(query, c)
+        curso = cursor.fetchone()
+        idCurso = curso[0]
+        # Criar uma lista para retornar os dois valores.
+        turmaECurso = [idTurma, idCurso]
+        return turmaECurso
 
 # Consulta de Alunos:
 def getAlunos(matricula):
     with db.cursor() as cursor:
         if matricula == '':
-            query = f"SELECT a.matricula, a.aluno, t.turma, c.curso, e.evento FROM Alunos AS a INNER JOIN Turmas AS t ON t.id = a.idturma INNER JOIN Cursos AS c ON c.id = a.idcurso INNER JOIN Eventos AS e ON e.id = a.idevento"
+            query = f"SELECT a.matricula, a.aluno, t.turma, c.curso, e.evento FROM Alunos AS a INNER JOIN Turmas AS t ON t.id = a.idturma INNER JOIN Cursos AS c ON c.id = a.idcurso INNER JOIN Eventos AS e ON e.id = a.idevento;"
             cursor.execute(query)
             alunos = cursor.fetchall()
             return alunos
         else:
-            query = f"SELECT a.matricula, a.aluno, t.turma, c.curso, e.evento FROM Alunos AS a INNER JOIN Turmas AS t ON t.id = a.idturma INNER JOIN Cursos AS c ON c.id = a.idcurso INNER JOIN Eventos AS e ON e.id = a.idevento WHERE a.matricula = '%{matricula}%'"
+            query = f"SELECT a.matricula, a.aluno, t.turma, c.curso, e.evento FROM Alunos AS a INNER JOIN Turmas AS t ON t.id = a.idturma INNER JOIN Cursos AS c ON c.id = a.idcurso INNER JOIN Eventos AS e ON e.id = a.idevento WHERE a.matricula LIKE '%{matricula}%';"
             cursor.execute(query)
             alunos = cursor.fetchall()
             return alunos
