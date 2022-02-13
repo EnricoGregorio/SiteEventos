@@ -6,57 +6,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de Eventos</title>
+    <link rel="stylesheet" href="../static/styles/cadastroAlunos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 
 <body>
-<main>
-    <form action="" method="post">
-        <label for="matricula">Matrícula:</label>
-            <input type="text" name="matricula" id="matricula" minlength="11" maxlength="11" pattern="[0-9]{11}" title="Preencha de acordo o exemplo." placeholder="20202290900" required>
-        <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" minlength="3" required>
-        <label for="turma">Turma:</label>
-            <select name="turma" id="turma">
-                <option value="1º ano 'A'">1º ano "A"</option>
-                <option value="1º ano 'B'">1º ano "B"</option>
-                <option value="1º ano 'C'">1º ano "C"</option>
-                <option value="2º ano 'A'">2º ano "A"</option>
-                <option value="2º ano 'B'">2º ano "B"</option>
-                <option value="2º ano 'C'">2º ano "C"</option>
-                <option value="3º ano 'A'">3º ano "A"</option>
-                <option value="3º ano 'B'">3º ano "B"</option>
-                <option value="3º ano 'C'">3º ano "C"</option>
-            </select>
-        <label for="curso">Curso:</label>
-            <select name="curso" id="curso">
-                <option value="Técnico em Informática">Técnico em Informática</option>
-                <option value="Técnico em Meio Ambiente">Técnico em Meio Ambiente</option>
-                <option value="Técnico em Administração">Técnico em Administração</option>
-            </select>
-        <label for="eventoLista">Evento:</label>
-            <select name="evento" id="eventoLista"></select>
-        <input type="submit" value="Cadastrar">
-    </form>
-    <section>
-        <h2><a href="/" target="_self">Clique aqui</a> para voltar a página principal.</h2>
-    </section>
-</main>
-<footer>
-    <p>Todos os direitos reservados ₢ - <span id="cyear"></span></p>
-</footer>
-<script src="../static/js/jquery.js"></script>
-<script src="../static/js/scripts.js"></script>
-<script>
-    let dados = []
+    <header>
+        <div>
+            <a id="logo" href="/" target="_self">Eventos</a>
+        </div>
+        <nav class="desktop">
+            <ul>
+                <li><a href="/eventos" target="_self">Cadastro de Eventos</a></li>
+                <li><a href="/cadastroAlunos">Cadastro de Alunos</a></li>
+                <li><a href="/alunos" target="_self">Alunos</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+                <li><a href="/login" target="_self">Entrar</a></li>
+            </ul>
+        </nav>
+        <button class="menu-button">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile">
+            <ul>
+                <li><a href="/eventos" target="_self">Cadastro de Eventos</a></li>
+                <li><a href="/cadastroAlunos">Cadastro de Alunos</a></li>
+                <li><a href="/alunos" target="_self">Alunos</a></li>
+                <li><a href="/contato" target="_self">Contato</a></li>
+                <li><a href="/login" target="_self">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="" method="post">
+            <h1>Cadastro de Alunos</h1>
+            <label for="matricula">Matrícula:</label>
+                <input type="text" name="matricula" id="matricula" minlength="11" maxlength="11" pattern="[0-9]{11}" title="Preencha de acordo o exemplo." placeholder="20202290900" required><br>
+            <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" minlength="3" required><br>
+            <label for="turma">Turma:</label>
+                <select name="turma" id="turma">
+                    <option value="1º ano 'A'">1º ano "A"</option>
+                    <option value="1º ano 'B'">1º ano "B"</option>
+                    <option value="1º ano 'C'">1º ano "C"</option>
+                    <option value="2º ano 'A'">2º ano "A"</option>
+                    <option value="2º ano 'B'">2º ano "B"</option>
+                    <option value="2º ano 'C'">2º ano "C"</option>
+                    <option value="3º ano 'A'">3º ano "A"</option>
+                    <option value="3º ano 'B'">3º ano "B"</option>
+                    <option value="3º ano 'C'">3º ano "C"</option>
+                </select><br>
+            <label for="curso">Curso:</label>
+                <select name="curso" id="curso">
+                    <option value="Técnico em Informática">Técnico em Informática</option>
+                    <option value="Técnico em Meio Ambiente">Técnico em Meio Ambiente</option>
+                    <option value="Técnico em Administração">Técnico em Administração</option>
+                </select><br>
+            <label for="eventoLista">Evento:</label>
+                <select name="evento" id="eventoLista"></select><br>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </main>
+    <footer>
+        <p>Todos os direitos reservados ₢ - <span id="cyear"></span></p>
+    </footer>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/scripts.js"></script>
+    <script>
+        let dados = []
 
-    '{% for i in eventosLista %}'
-    dados.push('{{eventosLista[loop.index-1]}}');
-    '{% endfor %}'
+        '{% for i in eventosLista %}'
+        dados.push('{{eventosLista[loop.index-1]}}');
+        '{% endfor %}'
 
-    for (let i = 0; i < dados.length; i++) {
-        $('#eventoLista').append($('<option>').append(dados[i]))
-    }
-</script>
+        for (let i = 0; i < dados.length; i++) {
+            $('#eventoLista').append($('<option>').append(dados[i]))
+        }
+    </script>
 </body>
 
 </html>

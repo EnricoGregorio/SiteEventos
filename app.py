@@ -136,7 +136,7 @@ def showPageCadastroAlunos():
             else:
                 return pageCadastroAlunos + '<script>window.alert("Esse número de matrícula já está registrado!")</script>'
     else:
-        return redirectMaster
+        return redirect('http://127.0.0.1:5000/login')
 
 @app.route('/contato', methods=['GET', 'POST'])
 def showPageContato():

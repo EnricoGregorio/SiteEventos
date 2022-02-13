@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dongle:wght@300;400;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 :root {
-    --cor0: #303440;
-    --cor1: #0075FF;
-    --cor2: #F3F3F3;
-    --cor3: #0b4c97;
+    --cor0: #1C4774;
+    --cor1: #4075AD;
+    --cor2: #F3F1E2;
+    --cor3: #9AD0E2;
+    --cor4: #D3955E;
 }
 
 * {
@@ -22,6 +23,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    background-color: var(--cor3);
 }
 
 img {
@@ -112,6 +114,16 @@ main {
     flex: 1 0 auto;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--cor0);
+}
+
+h1>a {
+    color: var(--cor1)s;
+}
+
 footer {
     flex-shrink: 0;
 }
@@ -170,4 +182,9 @@ footer {
         padding: 10px;
         text-align: center;
     }
+
+    form {
+        max-width: 100%;
+    }
+
 }

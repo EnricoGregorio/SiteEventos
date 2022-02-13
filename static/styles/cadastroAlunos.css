@@ -7,6 +7,7 @@
     --cor3: #9AD0E2;
     --cor4: #D3955E;
 }
+
 * {
     user-select: none;
     margin: 0;
@@ -114,18 +115,25 @@ main {
 }
 
 form {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
+    display: block;
+    width: 60%;
+    margin: 60px auto;
+}
+
+form>h1 {
+    font-family: 'Dongle', Arial, Helvetica, sans-serif;
+    font-size: 5em;
+    text-align: center;
+    margin: 50px 0;
+    color: var(--cor0);
 }
 
 form>label {
     font-size: 1.2em;
     font-weight: 400;
     margin-right: 20px;
+    display: inline-block;
+    width: 90px;
 }
 
 input[type="submit"] {
@@ -140,7 +148,8 @@ input[type="submit"] {
     padding: 9px 20px;
 }
 
-input[type="text"] {
+input[type="text"],
+select {
     background-color: var(--cor2);
     border: none;
     border-radius: 7px;
@@ -152,71 +161,11 @@ input[type="text"] {
     width: 30%;
     padding-left: 5px;
     margin-right: 15px;
+    margin-bottom: 60px;
 }
 
 input:focus {
     outline: 0;
-}
-
-section.alunos {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-}
-
-table {
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 50px auto;
-    overflow-x: auto;
-}
-
-table,
-th,
-td {
-    padding: 10px 15px;
-    /* border-collapse: collapse; */
-    text-align: left;
-}
-
-th {
-    border-bottom: 1px solid black;
-}
-
-tr:nth-child(even) {
-    background-color: rgb(209, 209, 209);
-}
-
-div#paginacao {
-    margin-top: 10%;
-    text-align: center;
-}
-
-span#numeracao,
-button#anterior, 
-button#proximo {
-    color: var(--cor2);
-    font-size: 1.3em;
-    padding: 10px 20px;
-    user-select: none;
-}
-
-button#anterior, 
-button#proximo {
-    background: none;
-    border-radius: 10px;
-    border: none;
-    transition: .4s ease-in;
-}
-
-button#anterior:hover, 
-button#proximo:hover {
-    /* background-color: #3f9e32; */
-    background-color: var(--cor0);
-    border-radius: 10px;
-    color: white;
 }
 
 footer {
@@ -278,18 +227,9 @@ footer {
         text-align: center;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    select {
         width: 100%;
         margin: 10px 10px;
-    }
-
-    section.eventos {
-        display: block;
-        width: 95%;
-    }
-
-    table {
-        display: block;
-        width: 100%;
     }
 }
