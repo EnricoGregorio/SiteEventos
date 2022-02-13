@@ -135,4 +135,3 @@ def getAlunos(matricula):
             cursor.execute(query)
             alunos = cursor.fetchall()
             return alunos
-print(getEventos(''))
