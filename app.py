@@ -19,10 +19,18 @@ def setGestorUser(user, pwdUser):
         session['gestorPwd'] = pwdUser
     return redirectHome
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def showHomePage():
-    pageHome = render_template('index.html')
-    return pageHome
+    if request.method == 'GET':
+        nomeEvento = ''
+        lista = conn.getEventos(nomeEvento)
+        pageHome = render_template('index.html', eventos=lista)
+        return pageHome
+    else:
+        nomeEvento = request.form['evento'].strip()        
+        lista = conn.getEventos(nomeEvento)
+        pageHome = render_template('index.html', eventos=lista)
+        return pageHome
 
 # Função para carregar uma página que não existe no site.
 @app.route('/<inexistente>', methods=['GET'])
@@ -92,16 +100,13 @@ def showPageEventos():
 
 @app.route('/alunos', methods=['GET', 'POST'])
 def showPageAlunos():
-    # pageAlunos = render_template('pageAlunos.html')
     if request.method == 'GET':
         numMatricula = ''
         lista = conn.getAlunos(numMatricula)
         pageAlunos = render_template('pageAlunos.html', alunos=lista)
         return pageAlunos
     else:
-        numMatricula = request.form['matricula'].strip()
-        print(numMatricula)
-        
+        numMatricula = request.form['matricula'].strip()        
         lista = conn.getAlunos(numMatricula)
         pageAlunos = render_template('pageAlunos.html', alunos=lista)
         return pageAlunos

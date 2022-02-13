@@ -93,15 +93,15 @@ def getEventoAluno(e):
         return idevento
     
 # Consulta de Eventos:
-def getEventos(evento):
+def getEventos(e):
     with db.cursor() as cursor:
-        if evento == '':
-            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel;"
+        if e == '':
+            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y') AS dtinicio, DATE_FORMAT(e.dtfinal, '%d/%m/%Y') AS dtfinal, COUNT(a.id) AS qtdalunos FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel INNER JOIN Alunos AS a ON a.idevento = e.id GROUP BY e.evento;"
             cursor.execute(query)
             eventos = cursor.fetchall()
             return eventos
         else:
-            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y'), DATE_FORMAT(e.dtfinal, '%d/%m/%Y')  FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel WHERE e.evento LIKE '%{evento}%';"
+            query = f"SELECT e.evento, g.nome, DATE_FORMAT(e.dtinicio, '%d/%m/%Y') AS dtinicio, DATE_FORMAT(e.dtfinal, '%d/%m/%Y') AS dtfinal, COUNT(a.id) AS qtdalunos FROM Eventos AS e INNER JOIN Gestores AS g ON g.id = e.idresponsavel INNER JOIN Alunos AS a ON a.idevento = e.id WHERE e.evento LIKE '%{e}%' GROUP BY e.evento;"
             cursor.execute(query)
             eventos = cursor.fetchall()
             return eventos
