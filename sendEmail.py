@@ -15,10 +15,10 @@ def sendEmail(nomeUser, emailUser, numUser, msgUser):
     """
 
     msg = email.message.Message()
-    msg["Subject"] = "Contato"                          # Assunto do mensagem.
-    msg["From"] = "enviadordeemailsteste@gmail.com"     # E-mail do remetente.
-    msg["To"] = "enricogregorio5@gmail.com"             # E-mail do destinatário.
-    password = "Show123casa"                            # Senha do remetente.
+    msg["Subject"] = ""     # Assunto do mensagem.
+    msg["From"] = ""        # E-mail do remetente.
+    msg["To"] = ""          # E-mail do destinatário.
+    password = ""           # Senha do remetente.
     msg.add_header("Content-Type", "text/html")
     msg.set_payload(mensagem)
 
