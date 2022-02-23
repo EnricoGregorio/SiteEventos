@@ -2,10 +2,10 @@ import pymysql
 
 # Configuração da conexão ao banco de dados.
 setDB = {
-    'host':'localhost',
-    'user':'root',
-    'password':'',
-    'database':'dbeventos'
+    'host':'',     # Conexão.
+    'user':'',     # Usuário do banco.
+    'password':'', # Senha do Usuário.
+    'database':''  # Database.
 }
 
 db = pymysql.connect(**setDB)
