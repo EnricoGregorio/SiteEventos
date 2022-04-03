@@ -10,7 +10,7 @@ CREATE TABLE MasterGestor(
     user VARCHAR(10) NOT NULL UNIQUE,
     pwd VARCHAR(20) NOT NULL,
     PRIMARY KEY(id)
-)
+);
 
 -- Tabelas para o cadastro do gestor:
 CREATE TABLE Gestores(
